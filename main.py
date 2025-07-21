@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 window = tk.Tk()
 window.title("Крестики-нолики")
-window.geometry("300x350")
+window.geometry("270x350")
 
 current_player = "X"
 buttons = []
@@ -55,6 +55,11 @@ def check_draw():
                 return False
     return True
 
+def game_begin_0():
+    global current_player
+    reset_game()
+    current_player = "0"
+
 for i in range(3):
    row = []
    for j in range(3):
@@ -64,8 +69,11 @@ for i in range(3):
    buttons.append(row)
 
 # Add reset game button
-button1 = tk.Button(window, text="Reset Game", width=10, command = reset_game)
+button1 = tk.Button(window, text="Reset Game", width=11, command = reset_game)
 button1.grid(row=3, column=1)
+
+button2 = tk.Button(window, text="Game Begin 0", width=11, command = game_begin_0)
+button2.grid(row=4, column=1)
 
 
 
