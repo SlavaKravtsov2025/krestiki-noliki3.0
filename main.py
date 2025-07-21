@@ -34,8 +34,26 @@ def on_click(row, col):
     if check_winner():
         messagebox.showinfo("Игра окончена", f"Игрок {current_player} победил!")
 
+    if check_draw():
+        messagebox.showinfo("Игра окончена", f"Боевая ничья!")
+
     current_player = "0" if current_player == "X" else "X"
 
+def reset_game():
+    global current_player
+
+    for i in range(3):
+        buttons[i][0]["text"] = ""
+        buttons[i][1]["text"] = ""
+        buttons[i][2]["text"] = ""
+        current_player = "X"
+
+def check_draw():
+    for i in range(3):
+        for j in range(3):
+            if buttons[i][j]["text"] == "":
+                return False
+    return True
 
 for i in range(3):
    row = []
@@ -44,6 +62,11 @@ for i in range(3):
        btn.grid(row=i, column=j)
        row.append(btn)
    buttons.append(row)
+
+# Add reset game button
+button1 = tk.Button(window, text="Reset Game", width=10, command = reset_game)
+button1.grid(row=3, column=1)
+
 
 
 window.mainloop()
