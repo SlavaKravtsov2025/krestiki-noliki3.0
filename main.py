@@ -3,10 +3,16 @@ from tkinter import messagebox
 
 window = tk.Tk()
 window.title("Крестики-нолики")
+
+window.configure(background="HotPink")
+
 window.geometry("270x350")
 
 current_player = "X"
 buttons = []
+
+win_count_X = 0
+win_count_0 = 0
 
 def check_winner():
     for i in range(3):
@@ -25,6 +31,8 @@ def check_winner():
 
 def on_click(row, col):
     global current_player
+    global win_count_X
+    global win_count_0
 
     if buttons[row][col]['text'] != "":
         return
@@ -33,6 +41,13 @@ def on_click(row, col):
 
     if check_winner():
         messagebox.showinfo("Игра окончена", f"Игрок {current_player} победил!")
+        if current_player == "X":
+            win_count_X += 1
+            label1.configure(text = f"X winner - {win_count_X}")
+        else:
+            win_count_0 += 1
+            label2.configure(text = f"0 winner - {win_count_0}")
+
 
     if check_draw():
         messagebox.showinfo("Игра окончена", f"Боевая ничья!")
@@ -75,7 +90,13 @@ button1.grid(row=3, column=1)
 button2 = tk.Button(window, text="Game Begin 0", width=11, command = game_begin_0)
 button2.grid(row=4, column=1)
 
+label1 = tk.Label(window, text="X winner - 0", width=11, bg="HotPink")
+label1.configure(foreground="white")
+label1.grid(row=3, column=0)
 
+label2 = tk.Label(window, text="0 winner - 0", width=11, bg="HotPink")
+label2.configure(foreground="white")
+label2.grid(row=3, column=2)
 
 window.mainloop()
 
